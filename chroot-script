@@ -1,0 +1,34 @@
+#!/bin/bash
+echo "Setting root password"
+passwd root
+
+echo "Setting hostname"
+read -rp "hostname: " hostname
+echo "$hostname" > /etc/hostname
+
+echo "Setting up pacman"
+pacman-key --init
+pacman-key --populate
+
+sed -i "s|#ParallelDownloads = 5|ParallelDownloads = 4|g; s|#Color|Color\nILoveCandy|g" /etc/pacman.conf
+
+pacman -Syu
+
+echo "Installing software"
+pacman -S grub efibootmgr linux linux-headers linux-firmware base-devel dkms git neovim networkmanager zsh
+
+echo "Installing grub"
+grub-install "$1"
+grub-mkconfig -o /boot/grub/grub.cfg
+
+echo "Downloading rtl8812au drivers to /root"
+cd /root
+git clone --depth 1 "https://github.com/aircrack-ng/rtl8812au" rtl8812au
+
+echo "Creating regular user"
+read -rp "Username: " username
+useradd -m "$username"
+passwd "$username"
+usermod -aG wheel "$username"
+
+echo "well that's pretty much it"

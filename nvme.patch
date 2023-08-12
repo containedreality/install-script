@@ -1,0 +1,31 @@
+diff --git a/install.sh b/install-nvme.sh
+index 590cd09..e47ee29 100755
+--- a/install.sh
++++ b/install-nvme.sh
+@@ -43,14 +43,14 @@ parted /dev/sda --script 'mklabel gpt'
+ parted /dev/sda --script 'mkpart primary fat32 0 512M'
+ parted /dev/sda --script 'mkpart primary ext4 512M 100%'
+ 
+-mkfs.fat -F32 -n 'EFI' "${disk}1"
+-mkfs.ext4 -L rootfs "${disk}2"
++mkfs.fat -F32 -n 'EFI' "${disk}p1"
++mkfs.ext4 -L rootfs "${disk}p2"
+ 
+ echo "Making folder for mount points"
+ mkdir /mnt/arch
+ 
+ echo "Mounting rootfs"
+-mount "${disk}2" /mnt/arch
++mount "${disk}p2" /mnt/arch
+ 
+ echo "Extracting arch tarball"
+ tar -xvf archlinux-bootstrap-x86_64.tar.gz
+@@ -59,7 +59,7 @@ mv root.x86_64/* /mnt/arch
+ echo "Mounting filesystems"
+ mkdir -p /mnt/arch/boot/efi
+ 
+-mount "${disk}1" /mnt/arch/boot/efi
++mount "${disk}p1" /mnt/arch/boot/efi
+ cp /etc/resolv.conf /mnt/arch/etc/resolv.conf
+ echo -e '\nServer = https://geo.mirror.pkgbuild.com/$repo/os/$arch\n' >> /mnt/arch/etc/pacman.d/mirrorlist
+ 

@@ -31,4 +31,12 @@ useradd -m "$username"
 passwd "$username"
 usermod -aG wheel "$username"
 
+echo "Creating swap"
+dd if=/dev/zero of=/swapfile bs=1M count=16k status=progress
+chmod 0600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+
+echo -e "\n/swapfile\tnone\tswap\tdefaults\t0 0" >> /etc/fstab
+
 echo "well that's pretty much it"

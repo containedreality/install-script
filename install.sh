@@ -71,6 +71,9 @@ mount --make-rslave /mnt/arch/dev
 mount --bind /run /mnt/arch/run
 mount --make-slave /mnt/arch/run
 
+echo "Running swapoff (required to create swap in chroot)"
+[ -f /swapfile ] && swapoff /swapfile
+
 echo "Disk partitioned. Attempting to create fstab"
 awk 'NR==1 { print "UUID="$0"\t/boot/efi\tvfat\tdefaults\t0 1" } END { print "UUID="$1"\t/\text4\tdefaults\t0 1" }' <(blkid -s UUID -o value "${disk}"*) > /mnt/arch/etc/fstab
 

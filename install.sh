@@ -39,9 +39,9 @@ echo "Running wipefs on $disk"
 wipefs -fa "$disk"
 
 echo "Trying to partition disk"
-parted /dev/sda --script 'mklabel gpt'
-parted /dev/sda --script 'mkpart primary fat32 0 512M'
-parted /dev/sda --script 'mkpart primary ext4 512M 100%'
+parted "${disk}" --script 'mklabel gpt'
+parted "${disk}" --script 'mkpart primary fat32 0 512M'
+parted "${disk}" --script 'mkpart primary ext4 512M 100%'
 
 mkfs.fat -F32 -n 'EFI' "${disk}1"
 mkfs.ext4 -L rootfs "${disk}2"

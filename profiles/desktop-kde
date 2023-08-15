@@ -16,7 +16,8 @@ sudo pacman --noconfirm -S kitty \
 		chromium \
 		leafpad \
 		sddm \
-		openssh
+		openssh \
+		plasma-desktop
 
 # Fonts
 sudo pacman --noconfirm -S noto-fonts-emoji \

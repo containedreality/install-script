@@ -17,7 +17,9 @@ sudo pacman --noconfirm -S kitty \
 		leafpad \
 		sddm \
 		openssh \
-		plasma-desktop
+		plasma-desktop \
+		ark \
+		unrar unzip p7zip
 
 # Fonts
 sudo pacman --noconfirm -S noto-fonts-emoji \

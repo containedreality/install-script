@@ -1,6 +1,9 @@
 #!/bin/sh
 sudo pacman --noconfirm -S lxc\
-		openssh
+		openssh \
+		dnsmasq
 
+sudo sed -i 's|USE_LXC_BRIDGE="false"|USE_LXC_BRIDGE="true"|g' /etc/default/lxc
+sudo systemctl disable --now systemd-resolved
 sudo systemctl enable --now lxc-net
 sudo systemctl enable --now sshd

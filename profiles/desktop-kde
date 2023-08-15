@@ -1,0 +1,27 @@
+#!/bin/sh
+
+[ -d ~/.local/src ] && mkdir -p ~/.local/src
+
+git clone https://aur.archlinux.org/yay.git ~/.local/src/yay
+
+last_dir="$PWD"
+cd ~/.local/src/yay || exit 127
+
+makepkg --noconfirm -si
+cd "$last_dir" || exit 127
+
+# Applications
+sudo pacman --noconfirm -S kitty \
+		dolphin \
+		chromium \
+		leafpad \
+		sddm \
+		openssh
+
+# Fonts
+sudo pacman --noconfirm -S noto-fonts-emoji \
+		ttf-jetbrains-mono \
+		ttf-hanazono
+
+sudo systemctl enable --now NetworkManager
+sudo systemctl enable --now sddm

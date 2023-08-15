@@ -1,0 +1,6 @@
+#!/bin/sh
+sudo pacman --noconfirm -S lxc\
+		openssh
+
+sudo systemctl enable --now lxc-net
+sudo systemctl enable --now sshd

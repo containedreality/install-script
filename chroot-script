@@ -15,7 +15,19 @@ sed -i "s|#ParallelDownloads = 5|ParallelDownloads = 4|g; s|#Color|Color\nILoveC
 pacman -Syu
 
 echo "Installing software"
-pacman -S grub efibootmgr linux linux-headers linux-firmware base-devel dkms git neovim networkmanager zsh htop
+pacman -S grub \
+		efibootmgr \
+		linux \
+		linux-headers \
+		linux-firmware \
+		base-devel \
+		dkms \
+		git \
+		neovim \
+		networkmanager \
+		zsh \
+		htop \
+		man-db
 
 echo "Installing grub"
 grub-install "$1"

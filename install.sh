@@ -36,7 +36,7 @@ if [ "$destroy_perms" != 'y' ]; then
 fi
 
 echo "Running wipefs on $disk"
-wipefs -fa "$disk"
+wipefs -fa "$disk"*
 
 echo "Trying to partition disk"
 parted "${disk}" --script 'mklabel gpt'
@@ -53,7 +53,7 @@ echo "Mounting rootfs"
 mount "${disk}2" /mnt/arch
 
 echo "Extracting arch tarball"
-tar -xvf archlinux-bootstrap-x86_64.tar.gz
+tar -xf archlinux-bootstrap-x86_64.tar.gz
 mv root.x86_64/* /mnt/arch
 
 echo "Mounting filesystems"

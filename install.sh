@@ -1,8 +1,9 @@
 #!/bin/bash
-required_binaries=('blkid' 'parted' 'lsblk' 'awk' 'wget')
+required_binaries=('blkid' 'parted' 'awk' 'wget' 'lshw')
 
 if [ "$USER" != 'root' ]; then
-	echo -e "You're not running the script as root, you're likely to face issues\n"
+	echo "Script must be ran as root"
+	exit 1
 fi
 
 echo -e "Checking for all required binaries\n"
@@ -18,7 +19,7 @@ done
 echo "Checking for/downloading arch filesystem"
 [ -f "archlinux-bootstrap-x86_64.tar.gz" ] || wget "https://geo.mirror.pkgbuild.com/iso/latest/archlinux-bootstrap-x86_64.tar.gz"
 
-lsblk
+lshw -short -class disk
 read -rp "Disk to partition? " disk
 
 if [ -b "$disk" ]; then
